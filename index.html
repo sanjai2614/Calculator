@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+            background: #f2f2f2;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .calculator {
+            width: 300px;
+            background-color: lightblue;
+            padding: 10px;
+
+        }
+
+        .btns {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            height: 50px;
+            cursor: pointer;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            font-size: 17px;
+            background: gray;
+            color: white;
+            transition: all .3s linear;
+            &:hover{
+                background: black;
+            }
+        }
+
+        .operator{
+            background: #2148a2;
+            &:hover{
+            background: #16357a;
+            }
+        }
+        .del{
+            background: darkred;
+            &:hover{
+                background: red;
+            }
+        }
+        .clear{
+            background: darkblue;
+            &:hover{
+                background: blue;
+            }
+        }
+
+        input {
+            height: 50px;
+            width: 100%;
+            padding: 10px;
+            font-size: 24px;
+            border: none;
+            outline: none;
+            text-align: right;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Calculator</h1>
+    <div class="calculator">
+        <input type="text" id="input" readonly>
+
+        <div class="btns">
+            <button class="clear" onclick="clr()">AC</button>
+            <button class="del" onclick="del()"><i class="ri-delete-back-2-line"></i></button>
+            <button class="operator" onclick="appendvalue('%')">%</button>
+            <button class="operator" onclick="appendvalue('/')">/</button>
+
+            <button onclick="appendvalue('7')">7</button>
+            <button onclick="appendvalue('8')">8</button>
+            <button onclick="appendvalue('9')">9</button>
+            <button class="operator" onclick="appendvalue('*')">x</button>
+
+            <button onclick="appendvalue('4')">4</button>
+            <button onclick="appendvalue('5')">5</button>
+            <button onclick="appendvalue('6')">6</button>
+            <button class="operator" onclick="appendvalue('-')">-</button>
+
+            <button onclick="appendvalue('1')">1</button>
+            <button onclick="appendvalue('2')">2</button>
+            <button onclick="appendvalue('3')">3</button>
+            <button class="operator" onclick="appendvalue('+')">+</button>
+
+            <button onclick="appendvalue('00')">00</button>
+            <button onclick="appendvalue('0')">0</button>
+            <button onclick="appendvalue('.')">.</button>
+            <button class="operator" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+
+        let display = document.getElementById("input")
+
+        let appendvalue = (value) => {
+            display.value += value
+        }
+
+        // clear display
+        let clr = () => {
+            display.value = "";
+        }
+
+        // delete last
+        let del = () => {
+            display.value = display.value.slice(0, -1)
+        }
+
+        // calculate value
+        let calculate = () => {
+            if (!display.value) return
+            try {
+                display.value = eval(display.value)
+            } catch (err) {
+                display.value = "Error"
+            }
+        }
+    </script>
+</body>
+
+</html>
